@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="ru">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="/static/style.css">
+        <link rel="icon" href="/static/favicon.png" type="image/png">
+        <title>Регистрация</title>
+    </head>
+
+    <body>
+        <div class="ball_1"></div>
+        <div class="ball_2"></div>
+
+        <nav class="glass">
+            <a class="logo" href="/">Thread & Brush</a>
+            <a href="/login">Войти</a>
+            <a href="/register">Регистрация</a>
+        </nav>
+
+        <main>
+            <form class="box glass" method="post" action="/register">
+                <h2>Регистрация</h2>
+
+                {{if .Error}}
+                    <p class="err">{{.Error}}</p>
+                {{end}}
+
+                <label class="field">
+                    Логин
+                    <input name="login" required>
+                </label>
+
+                <label class="field">
+                    Пароль
+                    <input name="password" type="password" required>
+                </label>
+
+                <button>Создать аккаунт</button>
+            </form>
+        </main>
+    </body>
+</html>

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="ru">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="/static/style.css">
+        <link rel="icon" href="/static/favicon.png" type="image/png">
+        <title>Thread & Brush</title>
+    </head>
+
+    <body>
+        <div class="ball_1"></div>
+        <div class="ball_2"></div>
+
+        <nav class="glass">
+            <a class="logo" href="/">Thread & Brush</a>
+
+            {{if .User}}
+                {{if eq .User.Role "admin"}}
+                    <a href="/admin/products">Товары</a>
+                    <a href="/admin/categories">Категории</a>
+                {{end}}
+
+                <a href="/cart">Корзина</a>
+                <span>{{.User.Login}}</span>
+                <a href="/logout">Выйти</a>
+            {{else}}
+                <a href="/login">Войти</a>
+                <a href="/register">Регистрация</a>
+            {{end}}
+        </nav>
+
+        <main>
+            <div class="cats">
+                <a class="glass" href="/">Все</a>
+                {{range .Categories}}
+                    <a class="glass" href="/?cat={{.Id}}">{{.Name}}</a>
+                {{end}}
+            </div>
+
+            <div class="grid">
+                {{range .Products}}
+                    <div class="card glass">
+                        {{if .Image}}
+                            <img src="{{.Image}}" alt="{{.Name}}">
+                        {{else}}
+                            <div class="noimg">нет фото</div>
+                        {{end}}
+
+                        <div class="info">
+                            <div class="price">{{.Price}} ₽</div>
+                            <div class="name">{{.Name}}</div>
+                            <div class="desc">{{.Description}}</div>
+
+                            <form method="post" action="/cart/add/{{.Id}}">
+                                <button>В корзину</button>
+                            </form>
+                        </div>
+                    </div>
+                {{else}}
+                    <p>Товаров пока нет</p>
+                {{end}}
+            </div>
+        </main>
+    </body>
+</html>

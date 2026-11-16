@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="ru">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="/static/style.css">
+        <link rel="icon" href="/static/favicon.png" type="image/png">
+        <title>Товары</title>
+    </head>
+
+    <body>
+        <div class="ball_1"></div>
+        <div class="ball_2"></div>
+
+        <nav class="glass">
+            <a class="logo" href="/">Thread & Brush</a>
+            <a href="/admin/products">Товары</a>
+            <a href="/admin/categories">Категории</a>
+            <a href="/cart">Корзина</a>
+            <span>{{.User.Login}}</span>
+            <a href="/logout">Выйти</a>
+        </nav>
+
+        <main>
+            <h2>Товары</h2>
+
+            <form class="box wide glass" method="post" action="{{if .Edit.Id}}/admin/products/update/{{.Edit.Id}}{{else}}/admin/products/create{{end}}">
+                <h3>{{if .Edit.Id}}Редактирование товара{{else}}Новый товар{{end}}</h3>
+
+                <label class="field">
+                    Название
+                    <input name="name" value="{{.Edit.Name}}" required>
+                </label>
+
+                <label class="field">
+                    Описание
+                    <textarea name="description" rows="3">{{.Edit.Description}}</textarea>
+                </label>
+
+                <label class="field">
+                    Цена, ₽
+                    <input name="price" type="number" min="0" value="{{.Edit.Price}}" required>
+                </label>
+
+                <label class="field">
+                    Ссылка на фото (например /static/products/hoodie.jpg)
+                    <input name="image" value="{{.Edit.Image}}">
+                </label>
+
+                <label class="field">
+                    Категория
+                    <select name="category_id">
+                        <option value="0">— без категории —</option>
+                        {{range .Categories}}
+                            <option value="{{.Id}}" {{if eq .Id $.Edit.CategoryId}}selected{{end}}>{{.Name}}</option>
+                        {{end}}
+                    </select>
+                </label>
+
+                <button>Сохранить</button>
+
+                {{if .Edit.Id}}
+                    <a class="btn" href="/admin/products">Отмена</a>
+                {{end}}
+            </form>
+
+            <br>
+
+            <table class="glass">
+                <tr>
+                    <th>ID</th>
+                    <th>Название</th>
+                    <th>Категория</th>
+                    <th>Цена</th>
+                    <th></th>
+                </tr>
+
+                {{range .Products}}
+                    <tr>
+                        <td>{{.Id}}</td>
+                        <td>{{.Name}}</td>
+                        <td>{{.CategoryName}}</td>
+                        <td>{{.Price}} ₽</td>
+                        <td>
+                            <a class="btn" href="/admin/products/{{.Id}}">Изменить</a>
+                            <form method="post" action="/admin/products/delete/{{.Id}}">
+                                <button class="red">Удалить</button>
+                            </form>
+                        </td>
+                    </tr>
+                {{end}}
+            </table>
+        </main>
+    </body>
+</html>

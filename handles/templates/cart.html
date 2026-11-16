@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="ru">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="/static/style.css">
+        <link rel="icon" href="/static/favicon.png" type="image/png">
+        <title>Корзина</title>
+    </head>
+
+    <body>
+        <div class="ball_1"></div>
+        <div class="ball_2"></div>
+
+        <nav class="glass">
+            <a class="logo" href="/">Thread & Brush</a>
+
+            {{if eq .User.Role "admin"}}
+                <a href="/admin/products">Товары</a>
+                <a href="/admin/categories">Категории</a>
+            {{end}}
+
+            <a href="/cart">Корзина</a>
+            <span>{{.User.Login}}</span>
+            <a href="/logout">Выйти</a>
+        </nav>
+
+        <main>
+            <h2>Корзина</h2>
+
+            {{if .Done}}
+                <p class="ok">Спасибо за заказ!</p>
+            {{end}}
+
+            {{if .Items}}
+                <div class="box wide glass">
+                    <table class="glass">
+                    <tr>
+                        <th>Товар</th>
+                        <th>Цена</th>
+                        <th>Кол-во</th>
+                        <th>Сумма</th>
+                        <th></th>
+                    </tr>
+
+                    {{range .Items}}
+                        <tr>
+                            <td>{{.Product.Name}}</td>
+                            <td>{{.Product.Price}} ₽</td>
+                            <td>{{.Quantity}}</td>
+                            <td>{{.Sum}} ₽</td>
+                            <td>
+                                <form method="post" action="/cart/remove/{{.Product.Id}}">
+                                    <button class="red">Убрать</button>
+                                </form>
+                            </td>
+                        </tr>
+                    {{end}}
+                </table>
+
+                    <h3>Итого: {{.Total}} ₽</h3>
+
+                    <form method="post" action="/cart/checkout">
+                        <button>Оформить заказ</button>
+                    </form>
+                </div>
+            {{else}}
+                {{if not .Done}}
+                    <p>Корзина пуста. <a href="/">Перейти в каталог</a></p>
+                {{end}}
+            {{end}}
+        </main>
+    </body>
+</html>

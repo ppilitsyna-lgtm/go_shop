@@ -1,0 +1,230 @@
+@font-face {
+  font-family: 'TT Travels';
+  src: url('/static/font/TT Travels Next Trial Light.ttf');
+}
+@font-face {
+  font-family: 'TT Travels Bold';
+  src: url('/static/font/TT Travels Next Trial Bold.ttf');
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: #000;
+  color: rgba(205, 204, 204, 0.9);
+  font-family: 'TT Travels', system-ui, sans-serif;
+  font-size: 14px;
+}
+
+a { color: #fff; }
+
+h1, h2, h3 {
+  font-family: 'TT Travels Bold', system-ui, sans-serif;
+  font-weight: 700;
+  color: rgba(241, 241, 241, 0.95);
+}
+
+/* ---------- Светящиеся шары на фоне ---------- */
+.ball {
+  position: fixed;
+  border-radius: 100%;
+  filter: blur(20px);
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.8;
+}
+.ball_1 {
+  width: 400px;
+  height: 400px;
+  right: -200px;
+  bottom: -150px;
+  background: radial-gradient(circle,
+    rgba(255, 255, 255, 0.9) 0%,
+    rgba(255, 255, 255, 0.4) 25%,
+    rgba(255, 255, 255, 0.1) 50%,
+    rgba(255, 255, 255, 0) 80%);
+}
+.ball_2 {
+  width: 350px;
+  height: 500px;
+  left: -180px;
+  top: -150px;
+  background: radial-gradient(circle,
+    rgba(255, 255, 255, 1) 20%,
+    rgba(255, 255, 255, 0.6) 35%,
+    rgba(255, 255, 255, 0.2) 60%,
+    rgba(255, 255, 255, 0) 90%);
+}
+
+/* ---------- «Стекло»: общий вид всех блоков ---------- */
+.glass {
+  background: rgba(106, 106, 106, 0.35);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 0.5px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.2);
+}
+
+/* ---------- Шапка ---------- */
+nav {
+  position: relative;
+  z-index: 1;
+  width: calc(100% - 32px);
+  max-width: 1100px;
+  margin: 16px auto;
+  padding: 14px 24px;
+  border-radius: 15px;
+  display: flex;
+  gap: 18px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+nav a { text-decoration: none; }
+nav a:hover { text-shadow: 0 0 10px rgba(255, 255, 255, 0.8); }
+nav .logo {
+  font-family: 'TT Travels Bold', system-ui, sans-serif;
+  font-size: 22px;
+  font-weight: 700;
+  margin-right: auto;
+}
+
+main {
+  position: relative;
+  z-index: 1;
+  max-width: 1100px;
+  margin: 24px auto;
+  padding: 0 16px;
+}
+
+/* ---------- Категории ---------- */
+.cats {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+}
+.cats a {
+  padding: 6px 14px;
+  border-radius: 20px;
+  text-decoration: none;
+}
+.cats a:hover { background: rgba(255, 255, 255, 0.25); }
+
+/* ---------- Карточки товаров ---------- */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+  gap: 18px;
+}
+.card {
+  border-radius: 15px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 0 30px rgba(255, 255, 255, 0.25);
+}
+.card img, .noimg {
+  width: 100%;
+  height: 220px;
+  object-fit: cover;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.08);
+  color: rgba(255, 255, 255, 0.4);
+}
+.card .info {
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  flex: 1;
+}
+.price { font-size: 20px; font-weight: 700; color: #fff; }
+.name { font-weight: 600; color: rgba(241, 241, 241, 0.95); }
+.desc { color: rgba(205, 204, 204, 0.8); flex: 1; }
+
+/* ---------- Кнопки ---------- */
+button, .btn {
+  background: rgba(255, 255, 255, 0.18);
+  color: #fff;
+  border: 0.5px solid rgba(255, 255, 255, 0.35);
+  padding: 9px 14px;
+  border-radius: 10px;
+  cursor: pointer;
+  font: inherit;
+  text-decoration: none;
+  display: inline-block;
+  transition: background 0.2s, box-shadow 0.2s;
+}
+button:hover, .btn:hover {
+  background: rgba(255, 255, 255, 0.3);
+  box-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
+}
+button.red {
+  background: rgba(217, 58, 58, 0.55);
+  border-color: rgba(255, 120, 120, 0.5);
+}
+button.red:hover {
+  background: rgba(217, 58, 58, 0.8);
+  box-shadow: 0 0 15px rgba(217, 58, 58, 0.6);
+}
+
+/* ---------- Формы ---------- */
+.box {
+  padding: 20px;
+  border-radius: 15px;
+  max-width: 420px;
+  margin: 0 auto;
+}
+.wide { max-width: none; }
+
+input, select, textarea {
+  width: 100%;
+  padding: 9px;
+  margin: 4px 0 12px;
+  background: rgba(0, 0, 0, 0.35);
+  color: #fff;
+  border: 0.5px solid rgba(255, 255, 255, 0.25);
+  border-radius: 10px;
+  font: inherit;
+}
+input:focus, select:focus, textarea:focus {
+  outline: none;
+  border-color: rgba(255, 255, 255, 0.6);
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.25);
+}
+select option { background: #222; color: #fff; }
+
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  border-radius: 15px;
+  overflow: hidden;
+}
+th {
+  font-family: 'TT Travels Bold', system-ui, sans-serif;
+  color: rgba(241, 241, 241, 0.95);
+}
+td, th {
+  padding: 10px;
+  border-bottom: 0.5px solid rgba(255, 255, 255, 0.12);
+  text-align: left;
+}
+td form { display: inline; }
+
+
+.err { color: #a02f2f; }
+.ok { color: #54b26b; font-weight: 600; }
+
+/* Подписи полей форм */
+.field {
+  display: block;
+}
