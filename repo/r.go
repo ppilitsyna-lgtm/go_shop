@@ -38,7 +38,7 @@ type Repo struct {
 }
 
 func New() *Repo {
-	db, err := sql.Open("pgx", "postgres://postgres:57489@localhost:5432/shop?sslmode=disable")
+	db, err := sql.Open("pgx", "postgres://postgres:пароль@localhost:5432/shop?sslmode=disable")
 	if err != nil {
 		panic(err)
 	}
